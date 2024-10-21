@@ -1,0 +1,50 @@
+Para criar um banco de dados MySQL, você precisará seguir os seguintes passos:
+
+Instalar o MySQL: Se você ainda não tiver o MySQL instalado, você pode baixá-lo e instalá-lo em seu computador. Você pode encontrar as instruções de instalação no site oficial do MySQL.
+Conectar-se ao servidor MySQL: Abra um terminal ou prompt de comando e conecte-se ao servidor MySQL usando o comando mysql -u root -p. Substitua root pelo nome de usuário que você criou durante a instalação do MySQL.
+Criar um banco de dados: Use o comando CREATE DATABASE nome_do_banco_de_dados; para criar um novo banco de dados. Substitua nome_do_banco_de_dados pelo nome que você deseja dar ao seu banco de dados.
+
+"mysql> CREATE DATABASE assistente_juridico;"
+
+Criar tabelas no banco de dados
+
+Para criar tabelas no banco de dados, você precisará usar comandos SQL. Aqui está um exemplo de como criar uma tabela para armazenar informações sobre decisões de tribunais e conselhos administrativos:
+
+
+"mysql> USE assistente_juridico;
+
+mysql> CREATE TABLE decisoes_de_tribunais (
+    id INT AUTO_INCREMENT,
+    data DATE,
+    tribunal VARCHAR(255),
+    decisao TEXT,
+    PRIMARY KEY (id)
+);
+
+"
+
+mysql> INSERT INTO decisoes_de_tribunais (data, tribunal, decisao)
+VALUES ('2022-01-01', 'Tribunal de Justiça', 'Decisão 1234');
+
+import mysql.connector
+
+# Conectar-se ao banco de dados
+cnx = mysql.connector.connect(
+    user='seu_usuario',
+    password='sua_senha',
+    host='seu_host',
+    database='assistente_juridico'
+)
+
+# Criar um cursor
+cursor = cnx.cursor()
+
+# Inserir dados na tabela
+cursor.execute("INSERT INTO decisoes_de_tribunais (data, tribunal, decisao) VALUES (%s, %s, %s)",
+               ('2022-01-01', 'Tribunal de Justiça', 'Decisão 1234'))
+
+# Commitar as alterações
+cnx.commit()
+
+# Fechar a conexão
+cnx.close()
